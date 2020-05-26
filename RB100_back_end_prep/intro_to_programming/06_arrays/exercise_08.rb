@@ -7,3 +7,9 @@ end
 
 p arr
 p new_arr
+
+#alternative
+
+# arr.map do |n|
+# n + 2
+# end
