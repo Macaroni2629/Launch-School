@@ -1,0 +1,1 @@
+puts "You can find Ruby documentation at either http://ruby-doc.org, https://docs.ruby-lang.org/en/, or devdocs.io."
