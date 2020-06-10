@@ -1,0 +1,1 @@
+puts "You would write my name as a symbol in the following manner: ':Mary' "
