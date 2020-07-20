@@ -6,10 +6,23 @@ def valid_number?(num)
   num.to_i() != 0
 end
 
+def operation_to_message(operator)
+  case operator
+  when '1'
+    "Adding"
+  when '2'
+    "Subtracting"
+  when '3'
+    "Multiplying"
+  when '4'
+    "Dividing"
+  end
+end
 
 prompt("Welcome to Calculator!  Enter your name:")
 
 name = ''
+
 loop do
   name = Kernel.gets().chomp()
 
@@ -56,10 +69,10 @@ loop do # main loop
     4) divide
   MSG
 
-  prompt(operator_prompt)
 
   operator = ''
   loop do
+    prompt(operator_prompt)
     operator = Kernel.gets().chomp()
 
     if %w(1 2 3 4).include?(operator)
