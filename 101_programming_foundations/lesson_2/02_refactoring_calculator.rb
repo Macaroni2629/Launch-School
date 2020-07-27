@@ -82,6 +82,8 @@ loop do # main loop
     end
   end
 
+  prompt("#{operation_to_message(operator)} the two numbers...")
+
   result = case operator
           when '1'
             number.to_i() + number2.to_i()
