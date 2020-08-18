@@ -1,149 +1,62 @@
+VALID_CHOICES = %w[r p sc l sp]
+WIN_CONDITIONS = { 'r' => ["l", "sc"],
+                   'p'=>  ["r", "sp"],
+                   'sc'=> ["p", "l"],
+                   'l'=> ["p", "sp"],
+                   'sp'=> ["sc", "r"]
+                  }
+
 WINNING_SCORE = 5
 
-VALID_CHOICES = {
-  "r" => "rock",
-  "p" => "paper",
-  "sc" => "scissors",
-  "l" => "lizard",
-  "sp" => "spock"
-}
-
-VALID_CHOICES_MESSAGE = <<-MSG
-Please Enter:
-  'r' for Rock
-  'p' for Paper
-  'sc' for Scissors
-  'l' for Lizard
-  'sp' for Spock
-  MSG
-
-WINNING_SCENARIOS = {
-  "rock" => ["lizard", "scissors"],
-  "paper" => ["rock", "spock"],
-  "scissors" => ["lizard", "paper"],
-  "lizard" => ["spock", "paper"]
-  "spock" => ["rock", "scissors"]
-}
-
-def prompt(message)
-  puts("=> #{message}")
+def prompt(msg)
+  puts "=> #{msg}"
 end
 
-def win?(first, second)
-  WINNING_SCENARIOS[first].include?(second)
+def valid_choice?(user_choice)
+  VALID_CHOICES.include?(user_choice)
 end
 
-def update_score_board(player, computer, score_board)
-  if win?(player, computer)
-    score_board[:player] += 1
-  elsif win?(computer, player)
-    score_board[:computer] += 1
+def get_user_choice
+  loop do
+    prompt("Please enter r for rock, p for paper, l for lizard, sc for scissors, or sp for spock.")
+    user_choice = gets.chomp
+    return user_choice if valid_choice?(user_choice)
+    prompt("invalid choice.  please enter a valid choice.")
   end
 end
 
-def reset_score_board(score_board)
-  score_board[:computer] = 0
-  score_board[:player] = 0
+def get_computer_choice
+  VALID_CHOICES.sample
 end
 
-def display_score_board(score_board)
-  "Your score: #{score_board[:player]}.
-  Computer score: #{score_board[:computer]}."
-end
-
-def display_results(player, computer)
-  if win?(player, computer)
-    prompt("You won!")
-  elsif win?(computer, player)
-    prompt("Computer won!")
+def who_won(first, second)
+  if WIN_CONDITIONS[first].include?(second)
+    prompt("User wins!")
+  elsif WIN_CONDITIONS[second].include?(first)
+    prompt("Computer wins!")
   else
     prompt("It's a tie!")
   end
 end
 
-def match_ended?(score_board)
-  score_board[:player] == WIN_SCORE || score_board[:computer] == WIN_SCORE
+
+score_board = {
+     user: 0,
+     computer: 0
+   }
+def update_score(score_board, user_choice, computer_choice)
+  score_board[:user] += 1 if WIN_CONDITIONS[user_choice].include?(computer_choice)
+    score_board[:computer] += 1 if WIN_CONDITIONS[computer_choice].include?(user_choice)
 end
-
-def display_match_winner(score_board)
-  if score_board[:player] == WIN_SCORE
-    "Congrats!  You won #{WIN_SCORE} matches, you are the winner!"
-  elsif score_board[:computer] == WIN_SCORE
-    "Congrats!  Computer won #{WIN_SCORE} matches, Computer is the winner!"
-  end
-end
-
-def display_choice_options
-  "Choose one:
-  'r' for rock,
-  'p' for paper,
-  'sc' for scissors,
-  'sp' for spock,
-  'l' for lizard"
-end
-
-def display_rules
-  <<-INTRO
-  Welcome to the game of Rock, Paper, Scissors, Spock, Lizard!
-  The rules are:
-  Rock crushes Lizard and crushes Scissors.
-  Paper covers Rock and disproves Spock.
-  Scissors cut Paper and decapitates Lizard.
-  Spock smashes Scissors and vaporizes Rock.
-  Lizard poisons Spock and eats Paper.
-
-  You must win #{WIN_SCORE} matches to win the entire game.
-  INTRO
-end
-
-def clear_screen
-  system('clear')
-end
-
-prompt(display_rules)
 
 loop do
-  loop do
-    choice = ''
-
-    loop do
-      prompt(display_choice_options)
-      choice = gets.chomp.downcase
-
-      if VALID_CHOICES.include?(choice)
-        break
-      else
-        prompt("That's not a valid choice.")
-        sleep(2)
-        clear_screen
-      end
-    end
-
-    computer_choice = VALID_CHOICES.sample
-    
-    puts("You chose: #{choice}; Computer chose: #{computer_choice}")
-
-    prompt(display_results(choice, computer_choice))
-
-    update_score_board(choice, computer_choice, score_board)
-
-    prompt(display_score_board(score_board))
-
-    sleep(2)
-    clear_screen
-    
-    if match_ended?(score_board)
-      prompt(display_match_winner(score_board))
-      reset_score_board(score_board)
-      break
-    end
-  end
-  prompt("Do you want to play again?"  Enter Y/y to play again.  Enter anything else to exit.")
-  answer = gets.chomp
-  break unless answer.downcase().start_with?('y')
-  
+  prompt("Welcome to rock paper scissors lizard spock.")
+  user_choice = get_user_choice
+  prompt("You picked #{user_choice}.")
+  computer_choice = get_computer_choice
+  prompt("Computer chose #{computer_choice}.")
+  winner_of_round = who_won(user_choice, computer_choice)
+  current_score = update_score(score_board, user_choice, computer_choice)
+  break if score_board[:user] == WINNING_SCORE || score_board[:computer] == WINNING_SCORE
+  p score_board
 end
-
-prompt("Thank you for playing.  Good bye!")
-
-
