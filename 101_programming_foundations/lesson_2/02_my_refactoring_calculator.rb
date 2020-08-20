@@ -36,6 +36,20 @@ def valid_operation?(operation)
   %w[1 2 3 4].include?(operation)
 end
 
+def operation_to_message(operation)
+  case operation
+  when '1'
+    'Adding'
+  when '2'
+    'Subtracting'
+  when '3'
+    'Multiplying'
+  when '4'
+    'Dividing'
+  end
+end
+
+
 def get_num_and_validate
   loop do
     prompt("Please input a number.")
@@ -45,16 +59,30 @@ def get_num_and_validate
   end
 end
 
-def get_operation
-  prompt("Please enter an operation.  1 for addition, 2 for subtraction, 3 for multiplication, 4 for division.")
-  gets.chomp
+def get_op_and_validate
+  
+  operator_prompt = <<-MSG
+Please input an operation.  
+1 for addition
+2 for subtraction
+3 for multiplication
+4 for division
+MSG
+  
+  loop do
+    prompt(operator_prompt)
+    operation = get_user_input
+    return operation if valid_operation?(operation)
+    prompt("Invalid input.")
+  end
 end
 
 loop do
   number1 = get_num_and_validate
   number2 = get_num_and_validate
-  operation = get_operation
+  operation = get_op_and_validate
 
+  prompt("#{operation_to_message(operation)} the two numbers..") 
   result = case operation
            when '1'
             number1.to_i + number2.to_i
