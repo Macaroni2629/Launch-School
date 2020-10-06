@@ -52,7 +52,7 @@ def computer_places_piece!(board)
 end
 
 def board_full?(board)
-  empty_squares(board).empty?
+  empty_squares(board).empty? -
 end
 
 def someone_won?(board)
