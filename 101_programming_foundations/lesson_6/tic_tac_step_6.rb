@@ -66,6 +66,15 @@ end
 
 def detect_winner(brd)
   WINNING_LINES.each do |line|
+    # if brd[line[0]] == PLAYER_MARKER &&
+    #    brd[line[1]] == PLAYER_MARKER &&
+    #    brd[line[2]] == PLAYER_MARKER 
+    #   return 'Player'
+    # elsif brd[line[0]] == PLAYER_MARKER &&
+    #       brd[line[1]] == PLAYER_MARKER &&
+    #       brd[line[2]] == PLAYER_MARKER 
+    #   return 'Computer'
+    # end
     if brd.values_at(*line).count(PLAYER_MARKER) == 3
       return 'Player'
     elsif brd.values_at(*line).count(COMPUTER_MARKER) == 3
