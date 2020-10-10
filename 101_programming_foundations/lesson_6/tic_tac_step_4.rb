@@ -71,8 +71,8 @@ def detect_winner(brd)
       brd[line[2]] == COMPUTER_MARKER
     return 'Computer'
     end
-    nil
   end
+  nil
 end
 
 board = initialize_board
