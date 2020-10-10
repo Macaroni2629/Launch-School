@@ -31,7 +31,7 @@ def initialize_board
 end
 
 def empty_squares(brd)
-  brd.keys.select{ |num| brd[num] == INITIAL_MARKER}
+  brd.keys.select { |num| brd[num] == INITIAL_MARKER}
 end
 
 def player_places_piece!(brd)
@@ -68,8 +68,8 @@ def detect_winner(brd)
        brd[line[2]] == PLAYER_MARKER
     return 'Player'
     elsif brd[line[0]] == COMPUTER_MARKER && 
-      brd[line[1]] == COMPUTER_MARKER && 
-      brd[line[2]] == COMPUTER_MARKER
+          brd[line[1]] == COMPUTER_MARKER && 
+          brd[line[2]] == COMPUTER_MARKER
     return 'Computer'
     end
   end
@@ -95,10 +95,9 @@ loop do
   else
     prompt "It's a tie!"
   end
-
-  prompt "Play again? (y or n)"
+  prompt "Play again?  (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
 end
 
-prompt "Thanks for playing Tic Tac Toe! Good bye!"
+prompt "Thanks for playing Tic Tac Toe!  Good bye."
