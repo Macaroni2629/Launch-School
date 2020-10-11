@@ -7,6 +7,7 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
+WINNING_SCORE = 5
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -97,14 +98,14 @@ def display_score(score)
   puts "Computer: #{score['Computer']}"
 end
 def three_wins?(score)
-  if score['Player'] == 3
+  if score['Player'] == WINNING_SCORE
     return true
-  elsif score['Computer'] == 3
+  elsif score['Computer'] == WINNING_SCORE
     return true
   end
   false
 end
-puts "Welcome to Tic Tac Toe.  Best of 3 rounds wins!"
+puts "Welcome to Tic Tac Toe.  Best of #{WINNING_SCORE} rounds wins!"
 score = initialize_scoreboard
 display_score(score)
 sleep (3)
