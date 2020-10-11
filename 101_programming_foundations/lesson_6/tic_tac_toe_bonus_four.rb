@@ -97,6 +97,7 @@ def computer_places_piece!(brd)
   if !square = computer_offense(brd)
     if !square = computer_defense(brd)
       square = empty_squares(brd).sample
+    end
   end
   brd[square] = COMPUTER_MARKER
 end
