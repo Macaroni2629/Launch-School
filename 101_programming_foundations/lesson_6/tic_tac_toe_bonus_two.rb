@@ -97,7 +97,7 @@ def display_score(score)
   puts "Player: #{score['Player']}"
   puts "Computer: #{score['Computer']}"
 end
-def three_wins?(score)
+def five_wins?(score)
   if score['Player'] == WINNING_SCORE
     return true
   elsif score['Computer'] == WINNING_SCORE
@@ -128,7 +128,7 @@ loop do
   winner = detect_winner(board)
   update_score(winner, score)
   display_score(score)
-  break if three_wins?(score)
+  break if five_wins?(score)
   prompt "Play again?  (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
