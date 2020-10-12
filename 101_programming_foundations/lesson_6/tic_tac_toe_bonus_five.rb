@@ -10,6 +10,7 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
+FIRST_PLAYER = "Choose"
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -60,6 +61,15 @@ def player_places_piece!(brd)
   end
   brd[square] = PLAYER_MARKER
 end
+    
+def place_piece!(brd, current)
+  if current == "Player"
+    player_places_piece!(brd)
+  else
+    computer_places_piece!(brd)
+  end
+end
+    
 def computer_defense(brd)
   WINNING_LINES.each do |line|
     if brd.values_at(*line).count(PLAYER_MARKER) == 2
@@ -143,18 +153,48 @@ def three_wins?(score)
   end
   false
 end
+    
+def who_first
+  if FIRST_PLAYER == 'Choose'
+    ask_choice_first_player
+  elsif FIRST_PLAYER == 'Player'
+    'Player'
+  elsif FIRST_PLAYER == 'Computer'
+    'Computer'
+  end
+end
+
+def ask_choice_first_player
+  prompt "Who Would you like to go first?  Type 'p' for player or 'c' for computer."
+  
+  loop do
+    preference = gets.chomp.downcase
+    
+    if preference == 'p'
+      break 'Player'
+    elsif preference == 'c'
+      break 'Computer'
+    else
+      prompt "Sorry, not a valid choice.  Type 'p' or 'c'."
+    end
+  end
+end
+    
+def alternate_player(current)
+  current == "Player" ? "Computer" : "Player"
+end
+    
 puts "Welcome to Tic Tac Toe.  Best of 3 rounds wins!"
 score = initialize_scoreboard
 display_score(score)
 sleep (3)
 loop do
   board = initialize_board
+  current_player = who_first
   loop do
     display_board(board)
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-    computer_places_piece!(board)
-    display_board(board)
+    place_piece!(board, current_player)
+    current_player = alternate_player(current_player)
     break if someone_won?(board) || board_full?(board)
   end
   display_board(board)
