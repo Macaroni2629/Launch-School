@@ -13,3 +13,7 @@ def average(numbers)
   sum / numbers.count
 end
 
+def average(array_of_int)
+  (array_of_int[0..-1].sum) / array_of_int.size
+  
+end
