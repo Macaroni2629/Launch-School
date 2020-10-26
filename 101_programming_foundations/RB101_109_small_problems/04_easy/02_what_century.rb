@@ -38,3 +38,17 @@ First, notice a pattern about a century. It is equal to the current year divided
 Next we need to understand which suffix to append for our century, the options being: 'th', 'nd', 'rd', 'st'. We decide which one to use by checking the last digit of the century. Though, before we do that, we do need to do one extra check. If the century's value mod 100 ends in either 11, 12, or 13, then we should return 'th'. Any other time, we can return a suffix determined by our case statement and the value of century % 10.
 
 Finally, we combine the string representation of the century with the correct suffix, and we have our answer.
+
+def century(year)
+  cent = (year.to_f / 100).ceil.to_s
+
+  if cent.end_with?("1") && !(cent.end_with?("11"))
+    cent << "st"
+  elsif cent.end_with?("2") && !(cent.end_with?("12"))
+    cent << "nd"
+  elsif cent.end_with?("3") && !(cent.end_with?("13"))
+    cent << "rd"
+  else
+    cent << "th"
+  end
+end
