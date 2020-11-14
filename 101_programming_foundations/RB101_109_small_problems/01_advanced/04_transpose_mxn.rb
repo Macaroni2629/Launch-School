@@ -31,3 +31,22 @@ end
 # Some of you may have been able to solve this exercise without doing a thing; if you determined your matrix size dynamically in the previous exercise instead of relying on the 3 x 3 requirement, you solved both problems in one step. However, almost everybody probably did a strict 3 x 3 solution for the first exercise.
 
 # How do you think you would have fared if you had to start with this exercise? How much harder would you have found the solution to be if you hadn't encountered and solved the 3x3 case first?
+
+
+def transpose(matrix)
+  new_matrix = []
+
+  new_matrix_size = matrix[0].size
+
+  new_matrix_size.times do |old_column|
+    new_row = []
+
+    matrix.size.times do |old_row|
+      new_row << matrix[old_row][old_column]
+    end
+
+    new_matrix << new_row
+  end
+
+  new_matrix
+end
