@@ -60,5 +60,17 @@ end
 # Write a transpose! method that transposes a matrix in place. The obvious solution is to reuse transpose from above, then copy the results back into the array specified by the argument. For this method, don't use this approach; write a method from scratch that does the in-place transpose.
 
 
+def transpose(matrix)
+  new_row_0 = []
+  new_row_1 = []
+  new_row_2 = []
+
+  matrix.each do |row|
+    new_row_0 << row[0] 
+    new_row_1 << row[1]
+    new_row_2 << row[2]
+  end
+  p [new_row_0, new_row_1, new_row_2]
+end
 
 
