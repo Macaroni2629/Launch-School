@@ -2,7 +2,7 @@
 # Modify the following code so that Hello! I'm a cat! is printed when Cat.generic_greeting is invoked.
 
 class Cat
-  def generic_greeting
+  def self.generic_greeting
     puts "Hello!  I'm a cat!"
   end
 
