@@ -116,3 +116,71 @@ end
 # This exercise can be solved in a similar manner by using inheritance; a Noble is a Person, and a Cheetah is a Cat, and both Persons and Cats are Animals. What changes would you need to make to this program to establish these relationships and eliminate the two duplicated #to_s methods?
 
 # Is to_s the best way to provide the name and title functionality we needed for this exercise? Might it be better to create either a different name method (or say a new full_name method) that automatically accesses @title and @name? There are tradeoffs with each choice -- they are worth considering.
+
+module Walkable
+  def walk
+    "#{name} #{gait} forward."
+  end
+  
+end
+
+class Person
+  attr_reader :name
+  include Walkable
+  def initialize(name)
+    @name = name
+  end
+
+  private
+
+  def gait
+    "strolls"
+  end
+end
+
+class Cat
+  attr_reader :name
+  include Walkable
+  def initialize(name)
+    @name = name
+  end
+
+  private
+
+  def gait
+    "saunters"
+  end
+end
+
+class Cheetah
+  attr_reader :name
+  include Walkable
+  def initialize(name)
+    @name = name
+  end
+
+  private
+
+  def gait
+    "runs"
+  end
+end
+
+class Noble
+  attr_reader :name, :title
+  def initialize(name, title)
+    @name = name
+    @title = title
+  end
+  include Walkable
+  
+  def walk
+    self.title + " " + super 
+  end
+  
+  private
+
+  def gait
+    "struts"
+  end
+end
