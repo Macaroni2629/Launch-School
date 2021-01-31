@@ -445,7 +445,7 @@ class Move
   VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
   
   def to_s
-    self.class.to_s 
+    self.class.to_s
   end  
 end
 
@@ -653,6 +653,7 @@ RPSGame.new.play
 
 class Move
   attr_reader :beats, :name
+
   VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
   
   def to_s
