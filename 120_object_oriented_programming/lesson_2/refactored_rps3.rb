@@ -94,7 +94,7 @@ class Computer < Player
   def choose
     case name
     when 'R2D2' then self.move = Rock.new
-    when 'Hal' then self.move = [Scissors, Scissors, Scissors, Rock, Lizard, Lizard, Spock, Spock].sample.new
+    when 'Hal' then self.move = [Scissors, Scissors, Lizard, Spock].sample.new
     when 'Chappie' then self.move = Lizard.new
     when 'Sonny' then self.move = Spock.new
     when 'Number 5' then self.move = Scissors.new
@@ -198,16 +198,19 @@ class RPSGame
     display_score
   end
 
+  def a_whole_game
+    loop do
+      game_round
+      display_winner_history_score
+      break sleep(2) if check_winner
+      break unless play_again?
+    end
+  end
+
   def play
     loop do
       display_welcome_message
-
-      loop do
-        game_round
-        display_winner_history_score
-        break sleep(2) if check_winner
-        break unless play_again?
-      end
+      a_whole_game
       clear_screen
       sleep(2)
       display_grand_winner
