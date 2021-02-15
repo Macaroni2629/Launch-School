@@ -1,25 +1,24 @@
 class Board
   INITIAL_MARKER = ' '
-
   def initialize
     @squares = {}
-    @squares[key] = value
     (1..9).each { |key| @squares[key] = Square.new(INITIAL_MARKER)}
   end
-
+    
   def get_square_at(key)
     @squares[key]
-
+  end
 end
 
 class Square
   def initialize(marker)
     @marker = marker
   end
-
+  
   def to_s
     @marker
   end
+  
 end
 
 class Player
@@ -32,10 +31,11 @@ end
 
 class TTTGame
   attr_reader :board
+  
   def initialize
     @board = Board.new
   end
-
+  
   def display_welcome_message
     puts 'Welcome to Tic Tac Toe!'
     puts ''
@@ -45,9 +45,9 @@ class TTTGame
     puts "Thanks for playing Tic Tac Toe!  Goodbye!"
   end
 
-  def display_board(clear=true)
+ def display_board(clear=true)
     system 'clear' if clear
-    puts "You're a #{human.marker}. Computer is a #{computer.marker}."
+    #puts "You're a #{human.marker}. Computer is a #{computer.marker}."
     puts ""
     puts "     |     |"
     puts "  #{board.get_square_at(1)}  |  #{board.get_square_at(2)}  |  #{board.
@@ -70,7 +70,7 @@ class TTTGame
   def play
     display_welcome_message
     loop do
-      display_board(board)
+      display_board
       break
       first_player_moves
       break if someone_won? || board_full?
